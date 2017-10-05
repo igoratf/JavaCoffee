@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
-    int numberOfCoffeesOrdered = 2;
+    int quantity= 2;
 
 
     @Override
@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        display(numberOfCoffeesOrdered);
-        displayPrice(numberOfCoffeesOrdered * 3);
+        displayPrice(quantity * 3);
     }
 
     /**
@@ -45,15 +44,21 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
+    /**
+     * This method is called each time the plus button is pressed and increases the quantity by one
+     */
     public void increment(View view) {
-        numberOfCoffeesOrdered++;
-        display(numberOfCoffeesOrdered);
+        quantity++;
+        display(quantity);
     }
 
+    /**
+     * This method is called each time the minus button is pressed and decreases the quantity by one
+     */
     public void decrement(View view) {
-        if (numberOfCoffeesOrdered > 0) {
-            numberOfCoffeesOrdered--;
-            display(numberOfCoffeesOrdered);
+        if (quantity > 0) {
+            quantity--;
+            display(quantity);
         } else {
             System.out.println("Can't have negative coffees");
         }
