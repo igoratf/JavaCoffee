@@ -1,6 +1,8 @@
 package com.example.android.justjava;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -23,8 +25,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is called when the order button is clicked.
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void submitOrder(View view) {
-        displayPrice(quantity * 3);
+        int price = quantity * 3;
+        String priceMessage = "Total: $" + price;
+        priceMessage = priceMessage + System.lineSeparator() + "Thank you!";
+        displayMessage(priceMessage);
     }
 
     /**
@@ -34,14 +40,6 @@ public class MainActivity extends AppCompatActivity {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
-    }
-
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
     /**
@@ -63,5 +61,13 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Can't have negative coffees");
         }
 
+    }
+
+    /**
+     * This method displays the given text on the screen.
+     */
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 }
