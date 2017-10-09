@@ -1,53 +1,40 @@
 package com.example.android.justjava;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
-    int quantity= 2;
+    int quantity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        quantity = 0;
     }
 
     /**
      * This method is called when the order button is clicked.
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void submitOrder(View view) {
-        int price = quantity * 3;
-        String priceMessage = "Total: $" + price;
-        priceMessage = priceMessage + System.lineSeparator() + "Thank you!";
-        displayMessage(priceMessage);
+        int price = calculatePrice(quantity);
+        String summary = createOrderSummary("Igor Farias", price);
+        displayMessage(summary);
     }
 
-    /**
-     * This method displays the given quantity value on the screen.
-     */
-    private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(
-                R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
-    }
 
     /**
      * This method is called each time the plus button is pressed and increases the quantity by one
      */
     public void increment(View view) {
         quantity++;
-        display(quantity);
     }
 
     /**
@@ -56,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public void decrement(View view) {
         if (quantity > 0) {
             quantity--;
-            display(quantity);
         } else {
             System.out.println("Can't have negative coffees");
         }
@@ -67,7 +53,27 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given text on the screen.
      */
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        TextView priceTextView = (TextView) findViewById(R.id.order_summary_text_view);
         priceTextView.setText(message);
+    }
+
+    /**
+     * Calculates the price of the order
+     * @param number is the quantity of coffees
+     * @return total value of the order
+     */
+    private int calculatePrice(int number) {
+        return number * 3;
+    }
+
+    /**
+     * Creates order summary
+     * @param name of the customer
+     * @param price of the order
+     * @return summary
+     */
+    private String createOrderSummary(String name, int price) {
+        String summary = "Name: " + name + "\n" + "Quantity: " + quantity + "\n" + "Total: $" + price + "\n" + "Thank you!";
+        return summary;
     }
 }
