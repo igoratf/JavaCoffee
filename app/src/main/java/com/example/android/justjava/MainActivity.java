@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         /*
         Method will be fixed later on
          */
-        int price = calculatePrice(quantity);
         boolean hasWhippedCream = whippedCream.isChecked();
         boolean hasChocolate = chocolate.isChecked();
         String customerName = getCustomerName();
+        int price = calculatePrice(hasWhippedCream, hasChocolate, quantity);
         String summary = createOrderSummary(customerName, hasWhippedCream, hasChocolate, price);
         displayMessage(summary);
     }
@@ -48,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
      * This method is called each time the plus button is pressed and increases the quantity by one
      */
     public void increment(View view) {
-        quantity++;
+        if (quantity <= 100) {
+            quantity++;
+        } else {
+            Toast.makeText(this, "Can't have more than 100 coffees", Toast.LENGTH_SHORT).show();
+        }
         display(quantity);
     }
 
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if (quantity > 0) {
             quantity--;
         } else {
-            System.out.println("Can't have negative coffees");
+            Toast.makeText(this, "Can't have negative coffees", Toast.LENGTH_SHORT).show();
         }
         display(quantity);
 
@@ -83,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
      * @param number is the quantity of coffees
      * @return total value of the order
      */
-    private int calculatePrice(int number) {
-        return number * 3;
+    private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate, int number) {
+        int price = number * 3;
+        if (hasWhippedCream) price += 1;
+        if (hasChocolate) price += 2;
+        return price;
     }
 
     /**
@@ -100,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Method will be fixed later on
          */
-        String summary = "Name: " + name +;
+        String summary = "Name: " + name;
         summary +=     "\n" + "Add whipped cream? " + addWhippedCream;
         summary += "\n" + "Add chocolate? " + addChocolate;
         summary += "\n" + "Quantity: " + quantity;
