@@ -2,12 +2,10 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 
 /**
@@ -15,6 +13,9 @@ import org.w3c.dom.Text;
  */
 public class MainActivity extends AppCompatActivity {
     int quantity;
+    CheckBox whippedCream;
+    CheckBox chocolate;
+    EditText customerNameEditText;
 
 
     @Override
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         quantity = 0;
+        whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        chocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        customerNameEditText = (EditText) findViewById(R.id.name_field);
     }
 
     /**
@@ -32,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
         Method will be fixed later on
          */
         int price = calculatePrice(quantity);
-        String summary = createOrderSummary("Igor Farias", price);
+        boolean hasWhippedCream = whippedCream.isChecked();
+        boolean hasChocolate = chocolate.isChecked();
+        String customerName = getCustomerName();
+        String summary = createOrderSummary(customerName, hasWhippedCream, hasChocolate, price);
         displayMessage(summary);
     }
 
@@ -82,25 +89,34 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates order summary
-     * @param name of the customer
-     * @param price of the order
-     * @return summary
+     * @param name is the name of the customer
+     * @param addWhippedCream checks if customer wants whipped cream topping
+     * @param addChocolate checks if customer wants chocolate topping
+     * @param price is the order total price
+     * @return order summary
      */
 
-    private String createOrderSummary(String name, int price) {
+    private String createOrderSummary(String name, boolean addWhippedCream, boolean addChocolate, int price) {
         /*
         Method will be fixed later on
          */
-        CheckBox whippedCream = (CheckBox) findViewById(R.id.checkBox);
-        String topping = "";
-        if (whippedCream.isChecked()) {
-            topping = "yes";
-        } else {
-            topping = "no";
-        }
-        String summary = "Name: " + name + "\n" + "Add whipped cream? " + topping +  "\n" + "Quantity: " + quantity + "\n" + "Total: $" + price + "\n" + "Thank you!";
+        String summary = "Name: " + name +;
+        summary +=     "\n" + "Add whipped cream? " + addWhippedCream;
+        summary += "\n" + "Add chocolate? " + addChocolate;
+        summary += "\n" + "Quantity: " + quantity;
+        summary += "\n" + "Total: $" + price;
+        summary += "\n" + "Thank you!";
         return summary;
     }
+
+    /**
+     * Returns customer name
+     * @return customer name
+     */
+    private String getCustomerName() {
+        return String.valueOf(customerNameEditText.getText());
+    }
+
 
 
 }
