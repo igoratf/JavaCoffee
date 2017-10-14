@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -36,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
         /*
         Method will be fixed later on
          */
+
         boolean hasWhippedCream = whippedCream.isChecked();
         boolean hasChocolate = chocolate.isChecked();
         String customerName = getCustomerName();
         int price = calculatePrice(hasWhippedCream, hasChocolate, quantity);
         String summary = createOrderSummary(customerName, hasWhippedCream, hasChocolate, price);
         displayMessage(summary);
+        composeEmail(new String[] {"igor.atf@gmail.com"}, "JustJava Order", summary);
     }
 
 
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called each time the plus button is pressed and increases the quantity by one
      */
     public void increment(View view) {
-        if (quantity <= 100) {
+        if (quantity < 100) {
             quantity++;
         } else {
             Toast.makeText(this, "Can't have more than 100 coffees", Toast.LENGTH_SHORT).show();
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Calculates the price of the order
+     *
      * @param number is the quantity of coffees
      * @return total value of the order
      */
@@ -97,10 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates order summary
-     * @param name is the name of the customer
+     *
+     * @param name            is the name of the customer
      * @param addWhippedCream checks if customer wants whipped cream topping
-     * @param addChocolate checks if customer wants chocolate topping
-     * @param price is the order total price
+     * @param addChocolate    checks if customer wants chocolate topping
+     * @param price           is the order total price
      * @return order summary
      */
 
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Method will be fixed later on
          */
         String summary = "Name: " + name;
-        summary +=     "\n" + "Add whipped cream? " + addWhippedCream;
+        summary += "\n" + "Add whipped cream? " + addWhippedCream;
         summary += "\n" + "Add chocolate? " + addChocolate;
         summary += "\n" + "Quantity: " + quantity;
         summary += "\n" + "Total: $" + price;
@@ -119,12 +125,28 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Returns customer name
+     *
      * @return customer name
      */
     private String getCustomerName() {
         return String.valueOf(customerNameEditText.getText());
     }
 
+    /**
+     * Composes an e-mail to send the order
+     *  @param address is the receiver e-mail address
+     * @param subject   is the subject
+     */
+    public void composeEmail(String[] address, String subject, String message) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, address);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 
 
 }
