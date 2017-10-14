@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 
 /**
  * This app displays an order form to order coffee.
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment(View view) {
         quantity++;
+        display(quantity);
     }
 
     /**
@@ -51,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             System.out.println("Can't have negative coffees");
         }
+        display(quantity);
 
+    }
+
+    public void display(int number) {
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        quantityTextView.setText(String.valueOf(number));
     }
 
     /**
@@ -77,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
      * @param price of the order
      * @return summary
      */
+
     private String createOrderSummary(String name, int price) {
         /*
         Method will be fixed later on
