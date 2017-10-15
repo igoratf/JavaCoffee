@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
         Method will be fixed later on
          */
         String summary = "Name: " + name;
-        summary += "\n" + "Add whipped cream? " + addWhippedCream;
-        summary += "\n" + "Add chocolate? " + addChocolate;
-        summary += "\n" + "Quantity: " + quantity;
-        summary += "\n" + "Total: $" + price;
-        summary += "\n" + "Thank you!";
+        summary += "\n" + getString(R.string.add_whipped_cream) + addWhippedCream;
+        summary += "\n" + getString(R.string.add_chocolate) + addChocolate;
+        summary += "\n" + getString(R.string.quantity) + ": " + quantity;
+        summary += "\n" + getString(R.string.total) + price;
+        summary += "\n" + getString(R.string.thank_you);
         return summary;
     }
 
