@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            android:text="$0"
+            android:text="0"
             android:textColor="#000" />
 
         <Button

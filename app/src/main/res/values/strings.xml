@@ -8,7 +8,7 @@
     <string name="add_whipped_cream">Add whipped cream? </string>
     <string name="add_chocolate">Add chocolate? </string>
     <string name="order_summary">Order summary</string>
-    <string name="total">Total: $</string>
+    <string name="total">Total: </string>
     <string name="thank_you">Thank you!</string>
     <string name="order">Order</string>
 </resources>
