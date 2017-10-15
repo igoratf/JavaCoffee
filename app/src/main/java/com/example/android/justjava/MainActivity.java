@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         int price = calculatePrice(hasWhippedCream, hasChocolate, quantity);
         String summary = createOrderSummary(customerName, hasWhippedCream, hasChocolate, price);
         displayMessage(summary);
-        composeEmail(new String[] {"igor.atf@gmail.com"}, "JustJava Order", summary);
+        composeEmail(new String[] {},"JustJava Order", summary);
     }
 
 
