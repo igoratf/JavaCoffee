@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Method will be fixed later on
          */
-        String summary = "Name: " + name;
+        String summary = getString(R.string.user_name) +  ": " + name;
         summary += "\n" + getString(R.string.add_whipped_cream) + addWhippedCream;
         summary += "\n" + getString(R.string.add_chocolate) + addChocolate;
         summary += "\n" + getString(R.string.quantity) + ": " + quantity;

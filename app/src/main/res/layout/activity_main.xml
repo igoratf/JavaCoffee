@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:onClick="submitOrder"
-            android:text="ORDER" />
+            android:text="@string/order" />
 
 
     </LinearLayout>
